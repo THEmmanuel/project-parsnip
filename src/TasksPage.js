@@ -15,7 +15,7 @@ const TasksPage = props => {
     return (
         <div className="tasks">
             <div className="task-lists">
-                {renderTaskLists}
+                {renderTaskLists()}
             </div>
         </div>
     )
