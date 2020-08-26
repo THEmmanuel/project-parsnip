@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {createStore} from 'redux';
 import App from './App';
-import tasks from './reducers'
+import tasks from './reducers/index';
 
 const store = createStore(tasks);
 
