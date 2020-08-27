@@ -67,7 +67,7 @@ const TasksPage = props => {
                     </button>
             </div>
             {state.showNewCardForm && (
-                <form>
+                <form className = 'task-list-form' onSubmit = {createTaskHandler}>
                     <input
                         className='full-width-input'
                         onChange={titleChangeHandler}
