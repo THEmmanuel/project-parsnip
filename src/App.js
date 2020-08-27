@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import './App.css';
+import { connect } from 'react-redux';
 import TasksPage from './TasksPage';
 
 const App = props => {
   return (
     <div className="main-content">
-      <TasksPage tasks={mockTasks} />
+      <TasksPage tasks={props.tasks} />
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    tasks: state.tasks
+  }
+}
+
+export default connect(mapStateToProps)(App);
