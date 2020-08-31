@@ -12,6 +12,18 @@ export const createTask = ({ title, description }) => {
             title,
             description,
             status: 'Unstarted'
+        },
+
+       
+    }
+}
+
+export const editTask = ({title}) => {
+    return {
+        type: 'EDIT_TASK',
+        payload: {
+            id: uniqueId(),
+            title
         }
     }
 }

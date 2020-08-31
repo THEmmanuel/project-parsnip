@@ -1,4 +1,4 @@
-import {uniqueId} from '../actions/index';
+import { uniqueId } from '../actions/index';
 
 const mockTasks = [
     {
@@ -15,8 +15,12 @@ const mockTasks = [
     },
 ]
 
+const tasks = (state = { tasks: mockTasks }, action) => {
 
-const tasks = (state = {tasks : mockTasks}, action) => {
+    if (action.type === 'CREATE_TASK') {
+        return { tasks: state.tasks.concat(action.payload) }
+    }
+
     return state
 }
 
