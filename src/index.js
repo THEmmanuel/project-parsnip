@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
+import { devToolsEnhancer } from 'redux-devtools-extension'
 import App from './App';
 import tasks from './reducers/index';
 
@@ -11,7 +12,7 @@ const store = createStore(tasks);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store = {store}>
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
