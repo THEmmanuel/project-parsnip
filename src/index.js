@@ -7,8 +7,7 @@ import { devToolsEnhancer } from 'redux-devtools-extension'
 import App from './App';
 import tasks from './reducers/index';
 
-const store = createStore(tasks);
-
+const store = createStore(tasks, devToolsEnhancer());
 
 ReactDOM.render(
   <React.StrictMode>
