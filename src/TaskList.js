@@ -5,10 +5,10 @@ const TaskList = props => {
     return (
         <div className='task-list'>
             <div className="task-list-title">
-                <strong>{props.stattus}</strong>
+                <strong>{props.status}</strong>
             </div>
             {props.tasks.map(task => (
-                <Task key={task.id} task={task} />
+                <Task key={task.id} task={task} statusChangedHandler={props.statusChangedHandler} />
             ))}
         </div>
     )

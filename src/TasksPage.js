@@ -52,7 +52,12 @@ const TasksPage = props => {
         const { tasks } = props;
         return TASK_STATUSES.map(status => {
             const statusTasks = tasks.filter(task => task.status === status);
-            return <TaskList key={status} status={status} tasks={statusTasks} />
+            return <TaskList
+                key={status}
+                status={status}
+                tasks={statusTasks}
+                statusChangedHandler={props.statusChangedHandler}
+            />
         })
     }
 

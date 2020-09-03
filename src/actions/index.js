@@ -13,17 +13,15 @@ export const createTask = ({ title, description }) => {
             description,
             status: 'Unstarted'
         },
-
-       
     }
 }
 
-export const editTask = ({title}) => {
+export const editTask = (id, params = {}) => {
     return {
         type: 'EDIT_TASK',
         payload: {
-            id: uniqueId(),
-            title
+            id,
+            params
         }
     }
 }
