@@ -7,15 +7,15 @@ export const uniqueId = () => {
     return _id++
 }
 
-export const createTask = ({ title, description }) => {
-    return {
-        type: 'CREATE_TASK',
-        payload: {
-            id: uniqueId(),
+export const createTask = ({ title, description, status = 'Unstarted' }) => {
+    return dispatch => {
+        api.createTask({
             title,
             description,
-            status: 'Unstarted'
-        },
+            status
+        }).then(res => {
+            dispatch(createTaskSucceeded(res.data));
+        })
     }
 }
 
@@ -40,8 +40,17 @@ export const fetchTasksSucceeded = tasks => {
 
 export const fetchTasks = () => {
     return dispatch => {
-            api.fetchTasks().then(res => {
-                dispatch(fetchTasksSucceeded(res.data))
-            })
+        api.fetchTasks().then(res => {
+            dispatch(fetchTasksSucceeded(res.data))
+        })
     }
+}
+
+export const createTaskSucceeded = task => {
+    return {
+        type: 'CREATE_TASK_SUCCEEDED',
+        payload: {
+            task,
+        },
+    };
 }
