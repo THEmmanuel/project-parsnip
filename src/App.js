@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TasksPage from './TasksPage';
-import { createTask, editTask } from './actions/index'
+import { createTask, editTask, fetchTasks} from './actions/index'
 
 const App = props => {
+
+  useEffect(props.dispatch(fetchTasks()), [])
 
   const createTaskHandler = ({ title, description }) => {
     props.dispatch(createTask({ title, description }));
