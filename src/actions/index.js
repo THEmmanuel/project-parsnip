@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 let _id = 1;
 
 export const uniqueId = () => {
@@ -23,5 +25,23 @@ export const editTask = (id, params = {}) => {
             id,
             params
         }
+    }
+}
+
+export const fetchTasksSucceeded = tasks => {
+    return {
+        type: 'FETCH_TASKS_SUCECEDED',
+        payload: {
+            tasks
+        }
+    }
+}
+
+export const fetchTasks = () => {
+    return dispatch => {
+        axios.get('http://localhost:3000/tasks:')
+            .then(res => {
+                dispatch(fetchTasksSucceeded(res.data))
+            })
     }
 }
