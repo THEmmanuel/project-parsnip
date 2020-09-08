@@ -1,4 +1,5 @@
 import axios from 'axios';
+import * as api from '../api/index'
 
 let _id = 1;
 
@@ -39,8 +40,7 @@ export const fetchTasksSucceeded = tasks => {
 
 export const fetchTasks = () => {
     return dispatch => {
-        axios.get('http://localhost:3000/tasks:')
-            .then(res => {
+            api.fetchTasks().then(res => {
                 dispatch(fetchTasksSucceeded(res.data))
             })
     }
