@@ -1,4 +1,4 @@
-const tasks = (state = { tasks: []}, action) => {
+const tasks = (state = { tasks: [] }, action) => {
 
     if (action.type === 'CREATE_TASK') {
         return { tasks: state.tasks.concat(action.payload) }
@@ -14,6 +14,12 @@ const tasks = (state = { tasks: []}, action) => {
                 return task;
             })
         }
+    }
+
+    if (action.type === 'FETCH_TASKS_SUCCEEDED') {
+        return {
+            tasks: action.payload.tasks,
+        };
     }
 
     return state
