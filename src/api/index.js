@@ -13,6 +13,10 @@ export const fetchTasks = () => {
     return client.get('/tasks');
 }
 
-export const createTasks = params => {
+export const createTask = params => {
     return client.post('/tasks', params)
+}
+
+export const editTask = (id , params) => {
+    return client.put(`${API_BASE_URL}/tasks/${id}`, params)
 }

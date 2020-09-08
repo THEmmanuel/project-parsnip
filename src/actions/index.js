@@ -3,6 +3,10 @@ import * as api from '../api/index'
 
 let _id = 1;
 
+const getTaskById = (tasks, id) => {
+    return tasks.find(task => task.id === id)
+}
+
 export const uniqueId = () => {
     return _id++
 }
@@ -20,12 +24,21 @@ export const createTask = ({ title, description, status = 'Unstarted' }) => {
 }
 
 export const editTask = (id, params = {}) => {
-    return {
-        type: 'EDIT_TASK',
-        payload: {
-            id,
-            params
-        }
+    return (dispatch, getState) => {
+        const task = getTaskById(getState().tasks.tasks, id);
+        const updatedTask = Object.assign({}, task, params);
+
+        api.editTask(id, updatedTask).then(res => {
+            dispatch(editTaskSucceeded(res.data));
+        })
+    }
+}
+
+export const fetchTasks = () => {
+    return dispatch => {
+        api.fetchTasks().then(res => {
+            dispatch(fetchTasksSucceeded(res.data))
+        })
     }
 }
 
@@ -38,13 +51,6 @@ export const fetchTasksSucceeded = tasks => {
     }
 }
 
-export const fetchTasks = () => {
-    return dispatch => {
-        api.fetchTasks().then(res => {
-            dispatch(fetchTasksSucceeded(res.data))
-        })
-    }
-}
 
 export const createTaskSucceeded = task => {
     return {
@@ -53,4 +59,13 @@ export const createTaskSucceeded = task => {
             task,
         },
     };
+}
+
+export const editTaskSucceeded = task => {
+    return {
+        type: 'EDIT_TASK_SUCCEEDED',
+        payload: {
+            task,
+        }
+    }
 }
