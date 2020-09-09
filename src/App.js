@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import TasksPage from './TasksPage';
-import { createTask, editTask, fetchTasks} from './actions/index'
+import { createTask, editTask, fetchTasks } from './actions/index';
+import FlashMessage from './FlashMessage'
 
 const App = props => {
 
@@ -17,18 +18,21 @@ const App = props => {
 
 
   return (
-    <div className="main-content">
-      <TasksPage tasks={props.tasks}
-        createTaskHandler={createTaskHandler}
-        statusChangeHandler={statusChangeHandler} 
-        isLoading = {props.isLoading}
+    <div className="container">
+      {props.error && <FlashMessage message = {props.error}/>}
+      <div className="main-content">
+        <TasksPage tasks={props.tasks}
+          createTaskHandler={createTaskHandler}
+          statusChangeHandler={statusChangeHandler}
+          isLoading={props.isLoading}
         />
+      </div>
     </div>
   );
 }
 
 const mapStateToProps = state => {
-  const {tasks, isLoading} = state.tasks;
+  const { tasks, isLoading } = state.tasks;
   return {
     tasks, isLoading
   }
