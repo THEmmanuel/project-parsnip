@@ -11,6 +11,15 @@ const fetchTasksStarted = () => {
     return { type: 'FETCH_TASKS_STARTED', }
 }
 
+const fetchTasksFailed = error => {
+    return {
+        type : 'FETCH_TASKS_FAILED',
+        payload : {
+            error,
+        }
+    }
+}
+
 export const uniqueId = () => {
     return _id++
 }
@@ -43,9 +52,12 @@ export const fetchTasks = () => {
         dispatch(fetchTasksStarted());
 
         api.fetchTasks().then(res => {
-            setTimeout(() => {
-                dispatch(fetchTasksSucceeded(res.data))
-            }, 2000)
+            // setTimeout(() => {
+            //     dispatch(fetchTasksSucceeded(res.data))
+            // }, 2000)
+            throw new Error ('Unable to fetch tasks due to some error')
+        }).catch(err => {
+            dispatch(fetchTasksFailed(err.message));
         })
     }
 }
