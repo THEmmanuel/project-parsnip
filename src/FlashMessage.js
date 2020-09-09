@@ -8,4 +8,8 @@ const FlashMessage = props => {
     )
 }
 
+Error.defaultProps = {
+    message: 'An error has occurred'
+}
+
 export default FlashMessage;
