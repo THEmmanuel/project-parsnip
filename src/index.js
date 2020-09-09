@@ -6,8 +6,9 @@ import { Provider } from 'react-redux'
 import { devToolsEnhancer, composeWithDevTools } from 'redux-devtools-extension'
 import App from './App';
 import tasks from './reducers/index';
-import tasksReducer from './reducers/index';
-import { thunk } from 'redux-thunk';
+import {tasksReducer, projectsReducer} from './reducers/index';
+import thunk  from 'redux-thunk';
+import logger from './middleware/logger'
 
 const rootReducer = (state = {}, action) => {
   return {
@@ -16,7 +17,7 @@ const rootReducer = (state = {}, action) => {
   }
 }
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
 
 ReactDOM.render(
   <React.StrictMode>
