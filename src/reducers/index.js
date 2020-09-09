@@ -3,10 +3,17 @@ const initialState = {
     isLoading: false,
 }
 
-const tasks = (state = { tasks: [] }, action) => {
+const tasks = (state = initialState, action) => {
     switch (action.type) {
         case 'CREATE_TASK': {
             return { tasks: state.tasks.concat(action.payload) }
+        }
+
+        case 'FETCH_TASKS_STARTED': {
+            return {
+                ...state,
+                isLoading: true,
+            }
         }
 
         case 'EDIT_TASK': {

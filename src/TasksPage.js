@@ -61,8 +61,13 @@ const TasksPage = props => {
         })
     }
 
-
-    // {renderTaskLists()}
+    // if (props.isLoading) {
+    //     return {
+    //         <div className="tasks-loadng">
+    //             Loading...
+    //         </div>
+    //     }
+    // }
 
     return (
         <div className="task-list">

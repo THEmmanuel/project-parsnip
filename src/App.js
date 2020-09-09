@@ -20,14 +20,17 @@ const App = props => {
     <div className="main-content">
       <TasksPage tasks={props.tasks}
         createTaskHandler={createTaskHandler}
-        statusChangeHandler={statusChangeHandler} />
+        statusChangeHandler={statusChangeHandler} 
+        isLoading = {props.isLoading}
+        />
     </div>
   );
 }
 
 const mapStateToProps = state => {
+  const {tasks, isLoading} = state.tasks;
   return {
-    tasks: state.tasks
+    tasks, isLoading
   }
 }
 

@@ -1,13 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux'
-import { devToolsEnhancer } from 'redux-devtools-extension'
+import { devToolsEnhancer, composeWithDevTools } from 'redux-devtools-extension'
 import App from './App';
 import tasks from './reducers/index';
+import tasksReducer from './reducers/index';
+import { thunk } from 'redux-thunk';
 
-const store = createStore(tasks, devToolsEnhancer());
+const rootReducer = (state = {}, action) => {
+  return {
+    tasks: tasksReducer(state.tasks, action),
+    projects: projectsReducer(state.projects, action)
+  }
+}
+
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <React.StrictMode>

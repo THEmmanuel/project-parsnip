@@ -7,6 +7,10 @@ const getTaskById = (tasks, id) => {
     return tasks.find(task => task.id === id)
 }
 
+const fetchTasksStarted = () => {
+    return { type: 'FETCH_TASKS_STARTED', }
+}
+
 export const uniqueId = () => {
     return _id++
 }
@@ -36,8 +40,12 @@ export const editTask = (id, params = {}) => {
 
 export const fetchTasks = () => {
     return dispatch => {
+        dispatch(fetchTasksStarted());
+
         api.fetchTasks().then(res => {
-            dispatch(fetchTasksSucceeded(res.data))
+            setTimeout(() => {
+                dispatch(fetchTasksSucceeded(res.data))
+            }, 2000)
         })
     }
 }
