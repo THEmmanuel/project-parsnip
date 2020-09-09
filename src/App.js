@@ -32,9 +32,9 @@ const App = props => {
 }
 
 const mapStateToProps = state => {
-  const { tasks, isLoading } = state.tasks;
+  const { tasks, isLoading, error } = state.tasks;
   return {
-    tasks, isLoading
+    tasks, isLoading, error
   }
 }
 
