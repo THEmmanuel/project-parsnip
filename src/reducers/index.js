@@ -1,12 +1,21 @@
 const initialState = {
     tasks: [],
     isLoading: false,
+    error: null
 }
 
 const tasks = (state = initialState, action) => {
     switch (action.type) {
         case 'CREATE_TASK': {
             return { tasks: state.tasks.concat(action.payload) }
+        }
+
+        case 'FETCH_TASKS_FAILED' : {
+            return {
+                ...state,
+                isLoading : false,
+                error: action.payload.error
+            }
         }
 
         case 'FETCH_TASKS_STARTED': {
