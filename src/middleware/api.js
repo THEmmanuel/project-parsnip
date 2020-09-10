@@ -6,6 +6,10 @@ const apiMiddleware = store => next => action => {
     if (typeof callApi === 'undefined') {
         return next(action);
     }
+
+    const [requestStartedType, successType, failureType] = callApi.types;
+    next({type : requestStartedType})
 }
+
 
 export default apiMiddleware;
