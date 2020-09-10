@@ -67,7 +67,7 @@ export const fetchTasksSucceeded = tasks => {
         type: 'FETCH_TASKS_SUCECEDED',
         payload: {
             tasks
-        }
+        },
     }
 }
 
@@ -78,6 +78,14 @@ export const createTaskSucceeded = task => {
         payload: {
             task,
         },
+        meta : {
+            analytics : {
+                event : 'create_task',
+                data : {
+                    id : task.id,
+                }
+            }
+        }
     };
 }
 
