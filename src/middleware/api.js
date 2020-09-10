@@ -13,19 +13,31 @@ const apiMiddleware = store => next => action => {
 
     const [requestStartedType, successType, failureType] = callApi.types;
     next({ type: requestStartedType })
-}
 
-const makeCall = (endpoint) => {
-    const url = `${API_BASE_URL}${endpoint}`;
+    const makeCall = (endpoint) => {
+        const url = `${API_BASE_URL}${endpoint}`;
 
-    return axios
-    .get(url)
-    .then(res => {
-        return res
-    })
-    .catch(err => {
-        return err;
-    });
+        return axios
+            .get(url)
+            .then(res => {
+                return res
+            })
+            .catch(err => {
+                return err;
+            });
+
+    }
+
+    return makeCall(callApi.endpoint).then(
+        res => next({
+            type: successType,
+            payload : res.data
+        }),
+        error => next({
+            type : failureType,
+            error : error.message
+        })
+    )
 
 }
 
