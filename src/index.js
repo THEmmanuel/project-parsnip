@@ -9,6 +9,7 @@ import tasks from './reducers/index';
 import {tasksReducer, projectsReducer} from './reducers/index';
 import thunk  from 'redux-thunk';
 import logger from './middleware/logger'
+import analytics from './middleware/analytics'
 
 const rootReducer = (state = {}, action) => {
   return {
@@ -17,7 +18,7 @@ const rootReducer = (state = {}, action) => {
   }
 }
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger, analytics)));
 
 ReactDOM.render(
   <React.StrictMode>
