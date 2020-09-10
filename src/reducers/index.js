@@ -41,7 +41,7 @@ const tasks = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: false,
-                tasks: action.payload.tasks,
+                tasks: action.payload,
             };
         }
 
