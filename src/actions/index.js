@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { CALL_API } from '../middleware/api'
 import * as api from '../api/index'
 
 let _id = 1;
@@ -7,18 +8,22 @@ const getTaskById = (tasks, id) => {
     return tasks.find(task => task.id === id)
 }
 
-const fetchTasksStarted = () => {
-    return { type: 'FETCH_TASKS_STARTED', }
-}
+// const fetchTasksStarted = () => {
+//     return { type: 'FETCH_TASKS_STARTED', }
+// }
 
-const fetchTasksFailed = error => {
-    return {
-        type : 'FETCH_TASKS_FAILED',
-        payload : {
-            error,
-        }
-    }
-}
+export const FETCH_TASKS_STARTED = 'FETCH_TASKS_STARTED';
+export const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED';
+export const FETCH_TASKS_FAILED = 'FETCH_TASKS_FAILED';
+
+// const fetchTasksFailed = error => {
+//     return {
+//         type : 'FETCH_TASKS_FAILED',
+//         payload : {
+//             error,
+//         }
+//     }
+// }
 
 export const uniqueId = () => {
     return _id++
@@ -48,28 +53,32 @@ export const editTask = (id, params = {}) => {
 }
 
 export const fetchTasks = () => {
-    return dispatch => {
-        dispatch(fetchTasksStarted());
-
-        api.fetchTasks().then(res => {
-            // setTimeout(() => {
-            //     dispatch(fetchTasksSucceeded(res.data))
-            // }, 2000)
-            throw new Error ('Unable to fetch tasks due to some error')
-        }).catch(err => {
-            dispatch(fetchTasksFailed(err.message));
-        })
-    }
-}
-
-export const fetchTasksSucceeded = tasks => {
     return {
-        type: 'FETCH_TASKS_SUCECEDED',
-        payload: {
-            tasks
-        },
+        [CALL_API]: {
+            types: [FETCH_TASKS_STARTED, FETCH_TASKS_FAILED, FETCH_TASKS_SUCCEEDED],
+            endpoint: '/tasks',
+        }
     }
+
+
+    // return dispatch => {
+    //     dispatch(fetchTasksStarted());
+    //     api.fetchTasks().then(res => {
+    //         throw new Error ('Unable to fetch tasks due to some error')
+    //     }).catch(err => {
+    //         dispatch(fetchTasksFailed(err.message));
+    //     })
+    // }
 }
+
+// export const fetchTasksSucceeded = tasks => {
+//     return {
+//         type: 'FETCH_TASKS_SUCECEDED',
+//         payload: {
+//             tasks
+//         },
+//     }
+// }
 
 
 export const createTaskSucceeded = task => {
@@ -78,11 +87,11 @@ export const createTaskSucceeded = task => {
         payload: {
             task,
         },
-        meta : {
-            analytics : {
-                event : 'create_task',
-                data : {
-                    id : task.id,
+        meta: {
+            analytics: {
+                event: 'create_task',
+                data: {
+                    id: task.id,
                 }
             }
         }
